@@ -1,0 +1,1 @@
+设置中搜索Restore Windows设置为none
