@@ -20,3 +20,26 @@ lsmod | grep goodix-gt7868q
 ```
 
 随着内核的更新，可能不再需要驱动
+
+**更新**：经实践，当内核更新到6.8.0-51-generic或之后时，触摸板可以点击，但无法移动鼠标，不再是之前的完全没反应，设置中也没有触摸板选项。推测为模块已添加，但未配置正确。此时只需要：
+```shell
+git clone "https://github.com/ty2/goodix-gt7868q-linux-driver.git"
+cd goodix-gt7868q-linux-driver
+sudo mkdir /etc/libinput
+sudo cp local-overrides.quirks /etc/libinput/local-overrides.quirks
+```
+而后重启即可
+
+local-overrides.quirks文件内容如下：
+```
+[Lenovo Thinkbook G6+ IMH - Goodix GT7868Q]
+MatchDMIModalias=dmi:bvnLENOVO:*:pvrThinkBook*G6+IMH*:*
+MatchVendor=0x27C6
+MatchProduct=0x01E9
+
+#AttrEventCode=-ABS_MT_PRESSURE;-ABS_PRESSURE;
+AttrPressureRange=2:0
+AttrPalmPressureThreshold=600
+AttrThumbPressureThreshold=1000
+```
+直接编辑亦可
