@@ -3,3 +3,8 @@ ubuntu可以识别ntfs格式的磁盘，可以直接读取win下划分的分区�
 原因是windows开启了快速启动功能，在关机时锁定了磁盘
 
 在控制面板中打开电源选项，关闭快速启动即可
+
+另，挂载选项可使用如下配置：
+```
+nofail,x-gvfs-show,defaults,uid=1000,gid=1000,umask=0022
+```
